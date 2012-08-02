@@ -1,0 +1,50 @@
+:TARGET.SUFFIXES
+:TARGET.SUFFIXES
+:DEPENDENCY..cpp .obj .rc .res 
+:TARGET.all
+:DEPENDENCY.
+.\XShadow.dll
+:RULE..rc.res
+:ACTION.Compile::Resource Compiler
+:COMMAND.
+rc.exe -r %s %|fF.RES
+:RULE.{C:\Misc\WPSProgramming\XShadow\Source}.rc.res
+:ACTION.Compile::Resource Compiler
+:COMMAND.
+rc.exe -r %s %|fF.RES
+:RULE..cpp.obj
+:ACTION.Compile::C++ Compiler
+:COMMAND.
+icc.exe /Ss /Ti /Gm /Ge- /C %s
+:RULE.{C:\Misc\WPSProgramming\XShadow\Source}.cpp.obj
+:ACTION.Compile::C++ Compiler
+:COMMAND.
+icc.exe /Ss /Ti /Gm /Ge- /C %s
+:TARGET..\XShadow.map .\XShadow.dll
+:DEPENDENCY.
+.\XShadow.obj
+.\Resource.res
+{$(LIB)}somtk.lib
+{$(LIB)}XShadow.def
+:ACTION.Link::Linker
+:COMMAND.
+icc.exe @<<
+ /B" /de /pmtype:pm"
+ /FeXShadow.dll 
+ /Fm"XShadow.map" 
+ somtk.lib 
+ XShadow.def
+ .\XShadow.obj
+<<
+:ACTION.Bind::Resource Bind
+:COMMAND.
+rc.exe .\Resource.res XShadow.dll
+:TARGET..\Resource.res
+:DEPENDENCY.
+C:\Misc\WPSProgramming\XShadow\Source\Resource.rc
+{C:\Misc\WPSProgramming\XShadow\Source;$(INCLUDE)}resource.h
+:TARGET..\XShadow.obj
+:DEPENDENCY.
+C:\Misc\WPSProgramming\XShadow\Source\XShadow.cpp
+{C:\Misc\WPSProgramming\XShadow\Source;$(INCLUDE);}XShadow.xih
+{C:\Misc\WPSProgramming\XShadow\Source;$(INCLUDE);}Resource.h

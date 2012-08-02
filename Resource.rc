@@ -1,0 +1,25 @@
+
+/* OS/2 Warp 4.0 Resource Script File - Created by Universal Resource Editor */
+
+#define INCL_WINSYS
+#define INCL_WINBIDI
+#define INCL_WINSTDDLGS
+#define INCL_WINSTDSPIN
+#define INCL_NLS
+#define INCL_SW
+
+#include <os2.h>
+
+#include "resource.h"
+
+MENU IDM_POP_MENU MOVEABLE DISCARDABLE
+BEGIN
+    MENUITEM "~Restore shadow title",  IDM_RESTORETITLE, MIS_TEXT
+    MENUITEM "About ~XShadow 1.1Beta", IDM_ABOUTXSHADOW, MIS_TEXT
+END
+
+STRINGTABLE MOVEABLE DISCARDABLE
+BEGIN
+    ID_HELPPATH,                        "XShadow.hlp"
+END
+

@@ -1,0 +1,233 @@
+
+// =====================================================================
+//   XSHADOW.IDL
+//
+
+// =====================================================================#
+//                                                                      #
+//  CLASS: XShadow                                                      #
+//                                                                      #
+//  CLASS HIERARCHY:                                                    #
+//                                                                      #
+//      SOMObject                                                       #
+//        ÀÄÄ WPObject                                                  #
+//              ÀÄÄ WPShadow                                            #
+//                    ÀÄÄ XShadow                                       #
+//                                                                      #
+//  DESCRIPTION:                                                        #
+//                                                                      #
+//  Instances of this class are Workplace Shell objects.                #
+//                                                                      #
+// =====================================================================#
+
+
+#ifndef _XSHADOW_IDL_
+#define _XSHADOW_IDL_
+
+//# ================================================================= #
+//# Include directives section:                                       #
+//# Include the class interface definition file for this object's     #
+//# parent class, metaclass (if any), and any ancestor class for      #
+//# which this class overrides one or more of its methods.            #
+//# ================================================================= #
+#include "WPShadow.idl"
+#include <somcls.idl>
+
+//# ================================================================== #
+//# Declaration section:                                               #
+//# Define any types, constants, and exception structures here.  The   #
+//# declarations defined here are not included in the binding files    #
+//# by the SOM compiler, and are thus private to the class.            #
+//# ================================================================== #
+
+//# ================================================================== #
+//# Interface declaration section:                                     #
+//# Describe the interfaces available to the class.  By default, all   #
+//# the interfaces defined in this section are public, and available   #
+//# to client programs.   These include any new methods defined for    #
+//# the class, as well as attributes.  Additional types, constants,    #
+//# and exception structures may also be defined in this section.      #
+//# The declarations defined here are passed to the language binding   #
+//# files except for parts enclosed in a  __PRIVATE__ #ifdef directive.#
+//# ================================================================== #
+
+interface M_XShadow;
+
+interface XShadow : WPShadow
+{
+
+   //# ================================================================== #
+   //# Interface Declaration Section:                                     #
+   //# Declare any new methods and attributes here.  Additional types,    #
+   //# constants, and exception structures may also be defined here.      #
+   //# By default, the declarations defined here are exported to the      #
+   //# binding files by the SOM compiler, and are thus public and         #
+   //# available to client programs.                                      #
+   //# ================================================================== #
+
+
+   //# ================================================================== #
+   //# Class attributes - data that can be used and manipulated by the    #
+   //# class's clients.  Declare any class attributes here.               #
+   //# ================================================================== #
+
+
+#ifdef __SOMIDL__
+  implementation {
+
+    //#============================================================================#
+    //# Release order -- specify the release order for any new methods, including  #
+    //#                  the _get and _set accessor methods for each attribute.    #
+    //#============================================================================#
+
+    //#   releaseorder:
+
+    //#============================================================================#
+    //# Class modifier statements
+    //#============================================================================#
+          majorversion = 1;
+          minorversion = 3;
+          metaclass = M_XShadow;
+          callstyle = oidl;
+          dllname = "XShadow.dll";
+
+    //# ================================================================== #
+    //# Passthru Statements:                                               #
+    //# Include any blocks of code that the SOM compiler should pass       #
+    //# verbatim to the binding files it generates.                        #
+    //# ================================================================== #
+
+    passthru C_xih_before =  ""      //# Internal definitions for this object
+   " /* PM and OS2 include directives */"
+   "   #define INCL_WIN"
+   "   #define INCL_DOS"
+   "   #define INCL_GPIBITMAPS"
+   "   #define INCL_DOSMODULEMGR"
+   "   #include <os2.h>"
+   ""
+   " /* WPS include directives */"
+   "   #define INCL_WPCLASS"
+   "   #define INCL_WPShadow"
+   "   #include <pmwp.h>"
+   ""
+   " /* C include directives */"
+   "   #include <stdio.h>"
+
+   "/* Menu resource IDs */"
+   "   #define IDM_XSHADOW_HELP           (WPMENUID_USER + 1)"
+   "   #define IDM_XSHADOW_PRODUCTINFO    (WPMENUID_USER + 2)"
+   "   #define IDM_XSHADOW_PRIMARY        (WPMENUID_USER + 3)"
+   "   #define IDM_XSHADOW_SELECTME       (WPMENUID_USER + 4)"
+   "";
+
+    //# ================================================================== #
+    //# Internal instance variables - data only used by the class's        #
+    //# methods and not by client programs or sublasses' methods.          #
+    //# ================================================================== #
+//#    PSZ pszMyRealName;            /* This object's real name */
+    M_XShadow    myClass;              // My class
+    HMODULE      resourceModule;       // Class resource module handle
+    PVOID     WPObject_wpQueryTitle;       // Pointer to WPS SOM method of grandparent
+    PVOID     WPObject_wpMenuItemSelected; // Pointer to WPS SOM method of grandparent
+    PVOID     WPObject_wpQueryStyle;       // Pointer to WPS SOM method of grandparent
+
+    BOOL    nameModified;      // Indicates if the shadow's name has been made different to
+                               // the shadowed object.
+
+    BOOL    lockedInPlace;     // Indicates that the shadow _only_ is locked in place
+
+    //# ================================================================== #
+    //# Method modifiers                                                   #
+    //# ================================================================== #
+    wpInitData            : override; // Init my data
+    wpRestoreState        : override; // Restore my state
+    wpSaveState           : override; // Save my state
+    wpUnInitData          : override; // Recover memory for my data
+
+    wpOpen                : override; // Open a view
+    wpSetTitle            : override; // Set title of shadowed object ?
+    wpSetShadowTitle      : override; // Set Shadow title
+
+    wpModifyPopupMenu     : override; // Add my menu items
+    wpMenuItemSelected    : override; // Handle my menu items & filter others
+
+    wpMenuItemHelpSelected: override; // Modify Help menu item
+    wpCreateShadowObject  : override; // Create a shadow of an object
+    wpCopyObject          : override; // Create a copy of an object
+    wpMoveObject          : override; // Move an object
+    wpQueryTitle          : override; // Query objects title
+    wpSetStyle            : override; // Set Object Style
+    wpQueryStyle          : override; // Query Object Style
+    wpModifyStyle         : override; // Modify Object Style
+
+//# wpDragOver            : override;
+//# wpDrop                : override;
+//# wpSetup               : override; // Init from setup string etc.
+//# wpSaveState           : override; // Save instance state
+//# wpRestoreState        : override; // Restore instance state
+
+//# wpAddSettingsPages    : override; // Add my settings page
+//# wpAddObjectWindowPage : override; // Remove Window Page
+
+    //# ================================================================== #
+    //# Attribute modifiers                                                #
+    //# ================================================================== #
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+
+//# ================================================================== #
+//# Metaclass section:                                                 #
+//# Describe the metaclass of M_XShadow.  A metaclass allows this    #
+//# object to define its own constructor, class methods, and data.     #
+//# ================================================================== #
+
+interface M_XShadow
+//# M_XShadow:
+//#
+//# Provides access to resource module.
+
+{
+  // New Class methods
+  HMODULE  clsGetResourceModule();  // Resource Module handle
+  PSZ      getHelpPath();           // Name of Help File
+
+//# Class attributes
+//  attribute HMODULE  hmodResource; //# Resource module handle for XShadow
+
+#ifdef __SOMIDL__
+  implementation {
+
+    releaseorder: clsGetResourceModule, getHelpPath;
+
+    //# Class Modifiers
+    majorversion = 1;
+    minorversion = 2;
+    callstyle = oidl;
+
+    //# Class Internal Variable
+    HMODULE   hResourceModule;
+    PSZ       pszHelpPath;
+//    PSZ       pszClassTitle;
+
+    //# Overridden WPS Class Methods
+    wpclsInitData         : override;    // Class init
+    wpclsUnInitData       : override;    // Class de-init
+
+    wpclsQueryStyle       : override;    // Get Class default Style
+//    wpclsQueryTitle       : override;    // Get Class Title
+    wpclsQueryDefaultHelp : override;    // Get Class Default Help
+
+    wpclsCreateDefaultTemplates :  override;    // So we can control templates
+
+//    wpclsQueryDefaultView: override;
+//    wpclsQueryIcon:        override;
+
+  };
+#endif /* __SOMIDL__ */
+};
+
+#endif  /* _XSHADOW_IDL_ */
+

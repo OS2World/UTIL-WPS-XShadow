@@ -1,0 +1,15 @@
+option ProjectOptions = gen(rtti, yes)
+{
+   option  link(linkwithmultithreadlib), link(linkwithsharedlib),
+          incl(searchpath, "."), lang(nokeyword, "bool"), lang(nokeyword, "true"),
+          lang(nokeyword, "false"), define("IC_LANG_BOOL", 0), define("_X86_"),
+          define("IVB_IMPORT", "_Import"), link(pmtype, pm)
+   {
+      target "XShadow.dll"
+      {
+         source "Resource.h"
+         source "Resource.rc"
+         source "XShadow.cpp"
+      }
+   }
+}
